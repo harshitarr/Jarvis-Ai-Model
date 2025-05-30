@@ -27,46 +27,69 @@
         
 </head>
 <body>
+ 
+    <div class="container">
+        <section id="Oval" class="mb-4" >
 
-    <section id="Oval" class="mb-4" >
+            <div class="row">
 
-        <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="d-flex justify-content-center align-items-center" style="height:80vh">
+                        <canvas id="canvasOne" width="700" height="420" style="position: absolute;" ></canvas>
+                        <div id="JarvisHood">
 
-            <div class="col-md-1"></div>
-            <div class="col-md-10">
-                <div class="d-flex justify-content-center align-items-center" style="height:80vh">
-                    <canvas id="canvasOne" width="700" height="420" style="position: absolute;" ></canvas>
-                    <div id="JarvisHood">
+                            <div class="square">
 
-                         <div class="square">
-
-                            <span class="circle"></span>
-                            <span class="circle"></span>
-                            <span class="circle"></span>
+                                <span class="circle"></span>
+                                <span class="circle"></span>
+                                <span class="circle"></span>
 
 
-                         </div>
+                            </div>
 
+                        </div>
+                    </div>
+
+                <h5 class="text-light text text-center">Ask  Me  Anything</h5>
+                <div class="col-md-12 mt-4 pt-4">
+                    <div class="text-center">
+                        <div id="TextInput" class="d-flex">
+                            <input type="text" class="input-field" name="chatbox" id="chatbox" placeholder="Type Here...">
+                            <button id="MicBtn" class="glow-on-hover"><i class="bi bi-mic"></i></button>
+                            <button id="ChatBtn" class="glow-on-hover"><i class="bi bi-chat-dots"></i></button>
+                            <button id="SettingsBtn" class="glow-on-hover"><i class="bi bi-gear"></i></button>
+
+                        </div>
                     </div>
                 </div>
-
-               <h5 class="text-light text text-center">Ask  Me  Anything</h5>
-               <div class="col-md-12 mt-4 pt-4">
-                  <div class="text-center">
-                    <div id="TextInput" class="d-flex">
-                        <input type="text" class="input-field" name="chatbox" id="chatbox" placeholder="Type Here...">
-                        <button id="MicBtn" class="glow-on-hover"><i class="bi bi-mic"></i></button>
-                        <button id="ChatBtn" class="glow-on-hover"><i class="bi bi-chat-dots"></i></button>
-                        <button id="SettingsBtn" class="glow-on-hover"><i class="bi bi-gear"></i></button>
-
-                    </div>
-                  </div>
-               </div>
+                </div>
+                <div class="col-md-1"></div>
             </div>
-            <div class="col-md-1"></div>
-        </div>
 
-    </section>
+        </section>
+
+        <section id="SiriWave" class="mb-4" hidden>
+             
+            <div class="container">
+                    
+                <div class="row">
+
+                       <div class="col-md-12">
+                            <div class="d-flex justify-content-center align-items-center" style="height:100vh">
+                                 <div class="">
+                                            <p class="text-start text-light mb-4 siri-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, aut consequatur? </p>
+                                            <div id="siri-container"></div>
+                                 </div>
+
+                
+                            </div>
+                       </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
 
    <!--Jquery  -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -81,6 +104,10 @@
     <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
 
     <script src="script.js"></script>
+
+     <!-- Siri wave -->
+    <script src="https://unpkg.com/siriwave/dist/siriwave.umd.min.js"></script>
+
 
     <!--textillate-->
 
