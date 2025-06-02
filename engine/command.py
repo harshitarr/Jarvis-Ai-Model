@@ -1,20 +1,20 @@
 import pyttsx3
 import speech_recognition as sr
 import eel
+import time
 
+# Text-to-Speech Function
 def speak(text):
     engine = pyttsx3.init('sapi5') 
     voices = engine.getProperty('voices')
-    engine.setProperty('voice',voices[0].id) # 0 for male voice and 1 for female voice which is inbuild
-    engine.setProperty('rate',150)  # the rate at which he talks
-    print(voices)
+    engine.setProperty('voice', voices[0].id)  # 0 = male, 1 = female (built-in voices)
+    engine.setProperty('rate', 150)  # Speech rate
+    eel.DisplayMessage(text)
     engine.say(text)
-    engine.runAndWait()  #pauses and speaks
+    engine.runAndWait()
 
-
-@eel.expose
+# Speech Recognition Function (Exposed to Eel)
 def takecommand():
-
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print('Listening...')
@@ -22,21 +22,60 @@ def takecommand():
         r.pause_threshold = 1
         r.adjust_for_ambient_noise(source)
 
-        audio = r.listen(source , 10 , 50)  # it waits for 10 sec before talking , it limits only for 50 seconds after when the user starts speaking
+        try:
+            audio = r.listen(source, timeout=10, phrase_time_limit=50)
+        except sr.WaitTimeoutError:
+            print("Timeout: No speech detected.")
+            eel.DisplayMessage("Timeout: No speech detected. Please try again.")
+            eel.ShowHood()
+            return ""
 
     try:
         print('Recognizing...')
         eel.DisplayMessage('Recognizing...')
-        query = r.recognize_google(audio,language='en-in')
-        print(f"user said: {query}")
+        query = r.recognize_google(audio, language='en-in')
+        print(f"User said: {query}")
         eel.DisplayMessage(query)
-        speak(query)
+        time.sleep(2)
+        return query.lower()
+
+    except sr.UnknownValueError:
+        print("Sorry, I could not understand your voice.")
+        eel.DisplayMessage("Sorry, I could not understand your voice.")
         eel.ShowHood()
-    except Exception as e:
         return ""
-    
-    return query.lower()
 
-#text = takecommand()
+    except sr.RequestError:
+        print("Speech recognition service is unavailable.")
+        eel.DisplayMessage("Speech recognition service is unavailable.")
+        eel.ShowHood()
+        return ""
 
-#speak(text) #speaks this content
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        eel.DisplayMessage("An unexpected error occurred.")
+        eel.ShowHood()
+        return ""
+
+@eel.expose
+def allCommands():
+    query = takecommand()
+    print(query)
+
+    if "open" in query:
+        from engine.features import openCommand
+        openCommand(query)
+
+    elif "on youtube" in query or "in youtube" in query:
+        try:
+            from engine.features import PlayYoutube
+            PlayYoutube(query)
+        except Exception as e:
+            print(f"Error in PlayYoutube: {e}")
+            eel.ShowHood()
+            return
+
+    else:
+        print("Not Run")
+
+    eel.ShowHood()
