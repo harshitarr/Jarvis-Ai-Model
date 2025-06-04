@@ -49,4 +49,15 @@ $(document).ready(function(){
         $("#SiriWave").attr("hidden", false);
         eel.allCommands()()
     });
+
+function doc_keyup(e) {
+    if (e.key === 'j' && e.metaKey) {  // also fixed 'metakey' to 'metaKey'
+        eel.playAssistantSound();
+        $("#Oval").attr("hidden", true);
+        $("#SiriWave").attr("hidden", false);
+        eel.allCommands()();  // double () is okay if allCommands returns a function
+    }
+}
+
+document.addEventListener('keyup', doc_keyup, false);
 })

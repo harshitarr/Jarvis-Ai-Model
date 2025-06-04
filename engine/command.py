@@ -7,7 +7,7 @@ import time
 def speak(text):
     engine = pyttsx3.init('sapi5') 
     voices = engine.getProperty('voices')
-    engine.setProperty('voice', voices[0].id)  # 0 = male, 1 = female (built-in voices)
+    engine.setProperty('voice', voices[1].id)  # 0 = male, 1 = female (built-in voices)
     engine.setProperty('rate', 150)  # Speech rate
     eel.DisplayMessage(text)
     engine.say(text)
@@ -59,23 +59,45 @@ def takecommand():
 
 @eel.expose
 def allCommands():
-    query = takecommand()
-    print(query)
+    try:
+        query = takecommand()
+        print(query)
 
-    if "open" in query:
-        from engine.features import openCommand
-        openCommand(query)
+        if "open" in query:
+            from engine.features import openCommand
+            openCommand(query)
 
-    elif "on youtube" in query or "in youtube" in query:
-        try:
-            from engine.features import PlayYoutube
-            PlayYoutube(query)
-        except Exception as e:
-            print(f"Error in PlayYoutube: {e}")
-            eel.ShowHood()
-            return
+        elif "on youtube" in query or "in youtube" in query:
+            try:
+                from engine.features import PlayYoutube
+                PlayYoutube(query)
+            except Exception as e:
+                print(f"Error in PlayYoutube: {e}")
+                eel.ShowHood()
+                return
 
-    else:
-        print("Not Run")
+        elif "on spotify" in query or "in spotify" in query:
+            try:
+                from engine.features import PlaySpotify
+                PlaySpotify(query)
+            except Exception as e:
+                print(f"Error in PlaySpotify: {e}")
+                eel.ShowHood()
+                return
+
+        elif "search" in query and "on google" in query:
+            try:
+                from engine.features import GoogleSearch
+                GoogleSearch(query)
+            except Exception as e:
+                print(f"Error in GoogleSearch: {e}")
+                eel.ShowHood()
+                return
+        else:
+            print("Not Run")
+
+    except:
+        print("error")
+
 
     eel.ShowHood()

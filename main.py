@@ -4,10 +4,12 @@ import eel
 from engine.features import *
 from engine.command import *
 
-eel.init("www")  #frontend code is present in this directory
+def start(): # we are performing multi threading
 
-playAssistantSound()
+    eel.init("www")  #frontend code is present in this directory
 
-os.system('start msedge.exe --app="http://localhost:8000/index.html"')
+    playAssistantSound()
 
-eel.start('index.html', mode=None, host='localhost', block=True) # eel library converts it into desktop formate
+    os.system('start msedge.exe --app="http://localhost:8000/index.html"')
+
+    eel.start('index.html', mode=None, host='localhost', block=True) # eel library converts it into desktop formate
