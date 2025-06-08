@@ -32,3 +32,26 @@ def GoogleSearch(query):
             speak("Sorry, I couldn't understand what to search on Google.")
     else:
         speak("Sorry, I couldn't understand the search query.")
+
+
+def remove_words(input_string, words_to_remove):
+    # Split the input string into words
+    words = input_string.split()
+
+    # Remove unwanted words
+    filtered_words = [word for word in words if word.lower() not in words_to_remove]
+
+    # Join the remaining words back into a string
+    result_string = ' '.join(filtered_words)
+
+    return result_string
+
+
+input_string = "make a phone call to pappa"
+words_to_remove = [ 'make', 'a', 'to', 'phone', 'call', 'send', 'message', 'wahtsapp', '']
+
+def remove_words(input_str, words_to_remove):
+    return ' '.join([word for word in input_str.split() if word.lower() not in [w.lower() for w in words_to_remove]])
+
+result = remove_words(input_string, words_to_remove)
+print(result)
