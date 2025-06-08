@@ -7,13 +7,13 @@ import time
 def speak(text):
     engine = pyttsx3.init('sapi5') 
     voices = engine.getProperty('voices')
-    engine.setProperty('voice', voices[1].id)  # 0 = male, 1 = female (built-in voices)
+    engine.setProperty('voice', voices[1].id)  # 0 = male, 1 = female
     engine.setProperty('rate', 150)  # Speech rate
     eel.DisplayMessage(text)
     engine.say(text)
     engine.runAndWait()
 
-# Speech Recognition Function (Exposed to Eel)
+# Speech Recognition Function
 def takecommand():
     r = sr.Recognizer()
     with sr.Microphone() as source:
@@ -93,11 +93,38 @@ def allCommands():
                 print(f"Error in GoogleSearch: {e}")
                 eel.ShowHood()
                 return
+
+        elif "send message" in query or "phone call" in query or "video call" in query:
+            try:
+                from engine.features import findContact, whatsApp
+                contact_no, name = findContact(query)
+                if contact_no != 0:
+                    # Directly use WhatsApp without asking
+                    message_type = ""
+                    message_content = ""
+
+                    if "send message" in query:
+                        message_type = 'message'
+                        speak("What message to send?")
+                        message_content = takecommand()
+                    elif "phone call" in query:
+                        message_type = 'call'
+                    else:
+                        message_type = 'video call'
+
+                    whatsApp(contact_no, message_content, message_type, name)
+
+            except Exception as e:
+                print(f"Error handling WhatsApp message/call: {e}")
+                eel.DisplayMessage("Error while using WhatsApp.")
+                eel.ShowHood()
+                return
+
         else:
             print("Not Run")
 
-    except:
-        print("error")
-
+    except Exception as e:
+        print(f"Error in allCommands: {e}")
+        eel.ShowHood()
 
     eel.ShowHood()

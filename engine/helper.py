@@ -47,11 +47,3 @@ def remove_words(input_string, words_to_remove):
     return result_string
 
 
-input_string = "make a phone call to pappa"
-words_to_remove = [ 'make', 'a', 'to', 'phone', 'call', 'send', 'message', 'wahtsapp', '']
-
-def remove_words(input_str, words_to_remove):
-    return ' '.join([word for word in input_str.split() if word.lower() not in [w.lower() for w in words_to_remove]])
-
-result = remove_words(input_string, words_to_remove)
-print(result)
