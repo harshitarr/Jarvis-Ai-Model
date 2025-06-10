@@ -198,3 +198,29 @@ body {
   50% { background-position: 400% 0; }
   100% { background-position: 0 0; }
 }
+
+.chat-canvas{
+  background-color: #191919
+}
+
+.receiver_message{
+  padding: 8px;
+  border: 2px solid deeppink;
+  border-radius: 0px 15px 15px 20px;
+  width: auto;
+  color: white;
+  background-color: #0dcaf014;
+}
+
+.sender_message{
+  padding: 8px;
+  border: 1px solid deeppink;
+  border-radius: 15px 15px 0px 20px;
+  width: auto;
+  color: white;
+  background-color: deeppink;
+}
+.width-size{
+  max-width: 80%;
+  width: auto;
+}
